@@ -109,7 +109,7 @@ p{margin:0 0 12px;max-width:62ch}
 .lead{font:500 clamp(1.25rem,3.2vw,1.65rem)/1.45 var(--head);max-width:36ch;margin-bottom:20px}
 .lead b{color:var(--accent)}
 .shot{position:relative}
-.shot.ph{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--bg)),var(--bg));font:700 1.7rem var(--head);color:var(--ink);text-align:center;padding:0 20px}
+.shot.phold{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 18%,var(--bg)),var(--bg));font:700 1.7rem var(--head);color:var(--ink);text-align:center;padding:0 20px}
 .rt{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:700 .78rem var(--body)}
 .hero h1{font:700 clamp(3.5rem,13vw,8.5rem)/.95 var(--head);letter-spacing:-.04em;margin:0}
 .hero h1 .dot{color:var(--accent)}
@@ -296,7 +296,7 @@ if(!RM){
 function card(x){
   const a=document.createElement('article');a.className='pc';
   const sh=document.createElement('div');sh.className='shot';
-  if(x.img){const i=document.createElement('img');i.src=x.img;i.alt='Main screen of '+x.name;i.loading='lazy';sh.append(i)}else{sh.classList.add('ph');sh.textContent=x.name}
+  if(x.img){const i=document.createElement('img');i.src=x.img;i.alt='Main screen of '+x.name;i.loading='lazy';sh.append(i)}else{sh.classList.add('phold');sh.textContent=x.name}
   if(x.r){const g=document.createElement('span');g.className='rt';g.textContent=x.r;sh.append(g)}
   const b=document.createElement('div');b.className='pb';
   const h=document.createElement('h3');h.textContent=x.name;
@@ -320,7 +320,7 @@ function render(){
 }
 render();
 fetch('https://api.github.com/users/Juice959/repos?sort=updated&per_page=100').then(r=>r.ok?r.json():Promise.reject()).then(list=>{
-  list.filter(r=>!r.fork).forEach(r=>{
+  list.filter(r=>!r.fork&&r.name!=='roanne-portfolio').forEach(r=>{
     let x=P.find(q=>q.name===r.name);
     if(!x){x={name:r.name,t:r.language||''};P.push(x)}
     if(r.description)x.d=r.description;
@@ -356,5 +356,3 @@ document.querySelectorAll('.rv').forEach(s=>ro.observe(s));
 </script>
 </body>
 </html>
-
-
